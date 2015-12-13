@@ -7,11 +7,11 @@ service Manager {
 }
 
 message SaveRequest {
-  optional bytes file_content = 1;
-  optional string path = 2;
+  optional bytes save_file = 1;
+  optional string save_path = 2;
   optional int32 timestamp = 3;
 }
 
 message SaveResponse {
-  optional string reply_path = 1;
+  optional string transfer_status = 1;
 }

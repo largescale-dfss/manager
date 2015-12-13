@@ -9,11 +9,18 @@ _ONE_DAY_IN_SECONDS = 24 * 60 *60
 class Manager(manager_django_pb2.BetaManagerServicer):
   def SaveFile(self, request, context):
     #SaveFile request has file, filepath, and timestamp
-    saveFile = request.file
-    path = request.path
+    saveFile = request.save_file
+    path = request.save_path
     timestamp = request.timestamp
 
-    return manager_django_pb2.ElaborateReply(answer='%s' % finalMessage)
+    finalMessage = "Success!"
+
+    print "Inside SaveFile()"
+    print saveFile
+    print path
+    print timestamp
+
+    return manager_django_pb2.SaveResponse(transfer_status='%s' % finalMessage)
 
 
 #Host Manager Server

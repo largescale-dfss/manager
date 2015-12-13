@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='manager_django.proto',
   package='consultation',
   syntax='proto2',
-  serialized_pb=_b('\n\x14manager_django.proto\x12\x0c\x63onsultation\"D\n\x0bSaveRequest\x12\x0c\n\x04path\x18\x01 \x01(\t\x12\x14\n\x0c\x66ile_content\x18\x02 \x01(\x0c\x12\x11\n\ttimestamp\x18\x03 \x01(\x05\"\"\n\x0cSaveResponse\x12\x12\n\nreply_path\x18\x01 \x01(\t2N\n\x07Manager\x12\x43\n\x08SaveFile\x12\x19.consultation.SaveRequest\x1a\x1a.consultation.SaveResponse\"\x00')
+  serialized_pb=_b('\n\x14manager_django.proto\x12\x0c\x63onsultation\"F\n\x0bSaveRequest\x12\x11\n\tsave_file\x18\x01 \x01(\x0c\x12\x11\n\tsave_path\x18\x02 \x01(\t\x12\x11\n\ttimestamp\x18\x03 \x01(\x05\"\'\n\x0cSaveResponse\x12\x17\n\x0ftransfer_status\x18\x01 \x01(\t2N\n\x07Manager\x12\x43\n\x08SaveFile\x12\x19.consultation.SaveRequest\x1a\x1a.consultation.SaveResponse\"\x00')
 )
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
@@ -34,16 +34,16 @@ _SAVEREQUEST = _descriptor.Descriptor(
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='path', full_name='consultation.SaveRequest.path', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
+      name='save_file', full_name='consultation.SaveRequest.save_file', index=0,
+      number=1, type=12, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b(""),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='file_content', full_name='consultation.SaveRequest.file_content', index=1,
-      number=2, type=12, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b(""),
+      name='save_path', full_name='consultation.SaveRequest.save_path', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
@@ -67,7 +67,7 @@ _SAVEREQUEST = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=38,
-  serialized_end=106,
+  serialized_end=108,
 )
 
 
@@ -79,7 +79,7 @@ _SAVERESPONSE = _descriptor.Descriptor(
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='reply_path', full_name='consultation.SaveResponse.reply_path', index=0,
+      name='transfer_status', full_name='consultation.SaveResponse.transfer_status', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -97,8 +97,8 @@ _SAVERESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=108,
-  serialized_end=142,
+  serialized_start=110,
+  serialized_end=149,
 )
 
 DESCRIPTOR.message_types_by_name['SaveRequest'] = _SAVEREQUEST
