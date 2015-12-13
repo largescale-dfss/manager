@@ -2,17 +2,13 @@
 
 This code is based off of the code from Assignment 3 in class.  
 
-###Preparing Code
-First compile the protobufs into .py files by running `protoprep.sh`  
-`bash protoprep.sh` command on Mac.
-
 ###Protofile Description
 `manager_django.proto` is in charge of communication between django and manager server.  
 
-
-
 ###Running Server
 manager-server.py is the manager server.
-`python manager-server.py` to start the server.  
+
+Running `startManager.sh` will compile the relevant protobuf files and will start the manager server.
+`bash startManager.sh` command on Mac.
 
 `python test-client.py` to test that the RPC connections are working.
