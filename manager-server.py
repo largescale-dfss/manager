@@ -15,6 +15,9 @@ class Manager(manager_django_pb2.BetaManagerServicer):
 
     finalMessage = "Success!"
 
+    with open('test-transfered.txt', 'wb') as f:
+        f.write(saveFile)
+
     print "Inside SaveFile()"
     print saveFile
     print path
@@ -27,7 +30,7 @@ class Manager(manager_django_pb2.BetaManagerServicer):
 def serve():
     #Reading off of the manager.proto, creating Manager class
     server = manager_django_pb2.beta_create_Manager_server(Manager())
-    server.add_insecure_port('[::]:50051')
+    server.add_insecure_port('[::]:50050')
     server.start()
     try:
       while True:
