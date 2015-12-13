@@ -1,0 +1,17 @@
+syntax = "proto2";
+
+package consultation;
+
+service Manager {
+  rpc SaveFile (SaveRequest) returns (SaveResponse) {}
+}
+
+message SaveRequest {
+  optional bytes file_content = 1;
+  optional string path = 2;
+  optional int32 timestamp = 3;
+}
+
+message SaveResponse {
+  optional string reply_path = 1;
+}
