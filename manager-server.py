@@ -3,25 +3,23 @@ import random
 from grpc.beta import implementations
 import grpc
 import time
+import os
 
 _ONE_DAY_IN_SECONDS = 24 * 60 *60
 
 class Manager(manager_django_pb2.BetaManagerServicer):
   def SaveFile(self, request, context):
+    finalMessage = "Inside SaveFile()!"
+
     #SaveFile request has file, filepath, and timestamp
     saveFile = request.save_file
     path = request.save_path
     timestamp = request.timestamp
 
-    finalMessage = "Success!"
+    filename = os.path.basename(path)
 
-    with open('test-transfered.txt', 'wb') as f:
+    with open(filename, 'wb') as f:
         f.write(saveFile)
-
-    print "Inside SaveFile()"
-    print saveFile
-    print path
-    print timestamp
 
     return manager_django_pb2.SaveResponse(transfer_status='%s' % finalMessage)
 
