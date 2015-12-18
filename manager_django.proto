@@ -4,6 +4,7 @@ package consultation;
 
 service Manager {
   rpc SaveFile (SaveRequest) returns (SaveResponse) {}
+  rpc OpenFile (OpenRequest) returns (OpenResponse) {}
 }
 
 message SaveRequest {
@@ -15,3 +16,14 @@ message SaveRequest {
 message SaveResponse {
   optional string transfer_status = 1;
 }
+
+
+message OpenRequest {
+  optional string open_path = 1;
+  optional int32 timestamp = 2;
+}
+
+message OpenResponse {
+  optional bytes open_file = 1;
+}
+

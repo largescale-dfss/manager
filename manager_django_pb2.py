@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='manager_django.proto',
   package='consultation',
   syntax='proto2',
-  serialized_pb=_b('\n\x14manager_django.proto\x12\x0c\x63onsultation\"F\n\x0bSaveRequest\x12\x11\n\tsave_file\x18\x01 \x01(\x0c\x12\x11\n\tsave_path\x18\x02 \x01(\t\x12\x11\n\ttimestamp\x18\x03 \x01(\x05\"\'\n\x0cSaveResponse\x12\x17\n\x0ftransfer_status\x18\x01 \x01(\t2N\n\x07Manager\x12\x43\n\x08SaveFile\x12\x19.consultation.SaveRequest\x1a\x1a.consultation.SaveResponse\"\x00')
+  serialized_pb=_b('\n\x14manager_django.proto\x12\x0c\x63onsultation\"F\n\x0bSaveRequest\x12\x11\n\tsave_file\x18\x01 \x01(\x0c\x12\x11\n\tsave_path\x18\x02 \x01(\t\x12\x11\n\ttimestamp\x18\x03 \x01(\x05\"\'\n\x0cSaveResponse\x12\x17\n\x0ftransfer_status\x18\x01 \x01(\t\"3\n\x0bOpenRequest\x12\x11\n\topen_path\x18\x01 \x01(\t\x12\x11\n\ttimestamp\x18\x02 \x01(\x05\"!\n\x0cOpenResponse\x12\x11\n\topen_file\x18\x01 \x01(\x0c\x32\x93\x01\n\x07Manager\x12\x43\n\x08SaveFile\x12\x19.consultation.SaveRequest\x1a\x1a.consultation.SaveResponse\"\x00\x12\x43\n\x08OpenFile\x12\x19.consultation.OpenRequest\x1a\x1a.consultation.OpenResponse\"\x00')
 )
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
@@ -101,8 +101,79 @@ _SAVERESPONSE = _descriptor.Descriptor(
   serialized_end=149,
 )
 
+
+_OPENREQUEST = _descriptor.Descriptor(
+  name='OpenRequest',
+  full_name='consultation.OpenRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='open_path', full_name='consultation.OpenRequest.open_path', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='timestamp', full_name='consultation.OpenRequest.timestamp', index=1,
+      number=2, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=151,
+  serialized_end=202,
+)
+
+
+_OPENRESPONSE = _descriptor.Descriptor(
+  name='OpenResponse',
+  full_name='consultation.OpenResponse',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='open_file', full_name='consultation.OpenResponse.open_file', index=0,
+      number=1, type=12, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b(""),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=204,
+  serialized_end=237,
+)
+
 DESCRIPTOR.message_types_by_name['SaveRequest'] = _SAVEREQUEST
 DESCRIPTOR.message_types_by_name['SaveResponse'] = _SAVERESPONSE
+DESCRIPTOR.message_types_by_name['OpenRequest'] = _OPENREQUEST
+DESCRIPTOR.message_types_by_name['OpenResponse'] = _OPENRESPONSE
 
 SaveRequest = _reflection.GeneratedProtocolMessageType('SaveRequest', (_message.Message,), dict(
   DESCRIPTOR = _SAVEREQUEST,
@@ -118,6 +189,20 @@ SaveResponse = _reflection.GeneratedProtocolMessageType('SaveResponse', (_messag
   ))
 _sym_db.RegisterMessage(SaveResponse)
 
+OpenRequest = _reflection.GeneratedProtocolMessageType('OpenRequest', (_message.Message,), dict(
+  DESCRIPTOR = _OPENREQUEST,
+  __module__ = 'manager_django_pb2'
+  # @@protoc_insertion_point(class_scope:consultation.OpenRequest)
+  ))
+_sym_db.RegisterMessage(OpenRequest)
+
+OpenResponse = _reflection.GeneratedProtocolMessageType('OpenResponse', (_message.Message,), dict(
+  DESCRIPTOR = _OPENRESPONSE,
+  __module__ = 'manager_django_pb2'
+  # @@protoc_insertion_point(class_scope:consultation.OpenResponse)
+  ))
+_sym_db.RegisterMessage(OpenResponse)
+
 
 import abc
 from grpc.beta import implementations as beta_implementations
@@ -130,6 +215,9 @@ class EarlyAdopterManagerServicer(object):
   __metaclass__ = abc.ABCMeta
   @abc.abstractmethod
   def SaveFile(self, request, context):
+    raise NotImplementedError()
+  @abc.abstractmethod
+  def OpenFile(self, request, context):
     raise NotImplementedError()
 class EarlyAdopterManagerServer(object):
   """<fill me in later!>"""
@@ -147,10 +235,21 @@ class EarlyAdopterManagerStub(object):
   def SaveFile(self, request):
     raise NotImplementedError()
   SaveFile.async = None
+  @abc.abstractmethod
+  def OpenFile(self, request):
+    raise NotImplementedError()
+  OpenFile.async = None
 def early_adopter_create_Manager_server(servicer, port, private_key=None, certificate_chain=None):
   import manager_django_pb2
   import manager_django_pb2
+  import manager_django_pb2
+  import manager_django_pb2
   method_service_descriptions = {
+    "OpenFile": alpha_utilities.unary_unary_service_description(
+      servicer.OpenFile,
+      manager_django_pb2.OpenRequest.FromString,
+      manager_django_pb2.OpenResponse.SerializeToString,
+    ),
     "SaveFile": alpha_utilities.unary_unary_service_description(
       servicer.SaveFile,
       manager_django_pb2.SaveRequest.FromString,
@@ -161,7 +260,13 @@ def early_adopter_create_Manager_server(servicer, port, private_key=None, certif
 def early_adopter_create_Manager_stub(host, port, metadata_transformer=None, secure=False, root_certificates=None, private_key=None, certificate_chain=None, server_host_override=None):
   import manager_django_pb2
   import manager_django_pb2
+  import manager_django_pb2
+  import manager_django_pb2
   method_invocation_descriptions = {
+    "OpenFile": alpha_utilities.unary_unary_invocation_description(
+      manager_django_pb2.OpenRequest.SerializeToString,
+      manager_django_pb2.OpenResponse.FromString,
+    ),
     "SaveFile": alpha_utilities.unary_unary_invocation_description(
       manager_django_pb2.SaveRequest.SerializeToString,
       manager_django_pb2.SaveResponse.FromString,
@@ -175,6 +280,9 @@ class BetaManagerServicer(object):
   @abc.abstractmethod
   def SaveFile(self, request, context):
     raise NotImplementedError()
+  @abc.abstractmethod
+  def OpenFile(self, request, context):
+    raise NotImplementedError()
 
 class BetaManagerStub(object):
   """The interface to which stubs will conform."""
@@ -183,17 +291,26 @@ class BetaManagerStub(object):
   def SaveFile(self, request, timeout):
     raise NotImplementedError()
   SaveFile.future = None
+  @abc.abstractmethod
+  def OpenFile(self, request, timeout):
+    raise NotImplementedError()
+  OpenFile.future = None
 
 def beta_create_Manager_server(servicer, pool=None, pool_size=None, default_timeout=None, maximum_timeout=None):
   import manager_django_pb2
   import manager_django_pb2
+  import manager_django_pb2
+  import manager_django_pb2
   request_deserializers = {
+    ('consultation.Manager', 'OpenFile'): manager_django_pb2.OpenRequest.FromString,
     ('consultation.Manager', 'SaveFile'): manager_django_pb2.SaveRequest.FromString,
   }
   response_serializers = {
+    ('consultation.Manager', 'OpenFile'): manager_django_pb2.OpenResponse.SerializeToString,
     ('consultation.Manager', 'SaveFile'): manager_django_pb2.SaveResponse.SerializeToString,
   }
   method_implementations = {
+    ('consultation.Manager', 'OpenFile'): face_utilities.unary_unary_inline(servicer.OpenFile),
     ('consultation.Manager', 'SaveFile'): face_utilities.unary_unary_inline(servicer.SaveFile),
   }
   server_options = beta_implementations.server_options(request_deserializers=request_deserializers, response_serializers=response_serializers, thread_pool=pool, thread_pool_size=pool_size, default_timeout=default_timeout, maximum_timeout=maximum_timeout)
@@ -202,13 +319,18 @@ def beta_create_Manager_server(servicer, pool=None, pool_size=None, default_time
 def beta_create_Manager_stub(channel, host=None, metadata_transformer=None, pool=None, pool_size=None):
   import manager_django_pb2
   import manager_django_pb2
+  import manager_django_pb2
+  import manager_django_pb2
   request_serializers = {
+    ('consultation.Manager', 'OpenFile'): manager_django_pb2.OpenRequest.SerializeToString,
     ('consultation.Manager', 'SaveFile'): manager_django_pb2.SaveRequest.SerializeToString,
   }
   response_deserializers = {
+    ('consultation.Manager', 'OpenFile'): manager_django_pb2.OpenResponse.FromString,
     ('consultation.Manager', 'SaveFile'): manager_django_pb2.SaveResponse.FromString,
   }
   cardinalities = {
+    'OpenFile': cardinality.Cardinality.UNARY_UNARY,
     'SaveFile': cardinality.Cardinality.UNARY_UNARY,
   }
   stub_options = beta_implementations.stub_options(host=host, metadata_transformer=metadata_transformer, request_serializers=request_serializers, response_deserializers=response_deserializers, thread_pool=pool, thread_pool_size=pool_size)
