@@ -18,7 +18,6 @@ def sendFile(transferFile, filePath, timeStamp):
 
 
 
-
 def openFile(filePath, timeStamp):
 	print "Reading file from Manager"
 
@@ -44,7 +43,8 @@ def openFile(filePath, timeStamp):
 
 
 
-with open('/Users/darwin/Desktop/test.txt', 'r') as f:
+
+with open('/home/cs202/Desktop/hello.txt', 'r') as f:
   read_data = f.read()
 
 filePath = "/User01/test.txt"

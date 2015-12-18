@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+service DataNode{
+    rpc Store(StoreRequest) returns (StoreReply){}
+    rpc Read(ReadRequest) returns {ReadReply}{}
+}
+
+message StoreRequest {
+    string blockname = 1;
+    bytes data = 2; 
+}
+
+message StoreReply {
+    bool success = 1;
+}
+
+message ReadRequest {
+    string blockname = 1;
+}
+
+message ReadReply {
+    bytes data = 1;
+    bool success = 2;
+}

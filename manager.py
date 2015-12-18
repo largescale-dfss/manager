@@ -4,6 +4,8 @@ from grpc.beta import implementations
 import grpc
 import time
 import os
+import namenode_pb2
+TIMEOUT = 10
 
 _ONE_DAY_IN_SECONDS = 24 * 60 *60
 
@@ -13,6 +15,12 @@ class Manager(manager_django_pb2.BetaManagerServicer):
 
         filePath = request.open_path
         timeStamp = request.timestamp
+	#SaveFile request has file, filepath, and timestamp
+	saveFile = request.save_file
+	path = request.save_path
+	timestamp = request.timestamp
+    
+	filename = os.path.basename(path)
 
         #THIS IS TEST NAIVE CODE
         with open(filePath, 'r') as f:
@@ -49,6 +57,20 @@ class Manager(manager_django_pb2.BetaManagerServicer):
         # Blocksize 123
 
         # Now talk to the DataNodes
+    
+with open(filename, 'wb') as f:
+        f.write(saveFile)
+    """
+    filesize = len(saveFile)
+
+    
+    #channel = implementations.insecure_channel("127.0.0.1",50056)
+    #stub = namenode_pb2.beta_create_NameNode_stub(channel)
+    #req = namenode_pb2.StoreRequest(file_path=path,file_size=filesize,timestamp=timestamp)
+    #response=stub.Store(req,TIMEOUT)    
+        #print("something went wrong here...")
+    """
+    return manager_django_pb2.SaveResponse(transfer_status='%s' % finalMessage)
 
 
 
@@ -83,3 +105,25 @@ def serve():
 
 if __name__ == '__main__':
   serve()
+
+
+
+'''
+  def Elaborate(self, request, context):
+    topic = request.topic
+    run = request.blah_run
+
+    if run == []:
+        finalMessage = topic + " "
+        finalMessage = finalMessage[:-1]
+        return debate_pb2.ElaborateReply(answer='%s' % finalMessage)
+
+    if len(run) == 1:
+        finalMessage = "blah" * run[0] + " " + topic
+    else:
+        finalMessage = "blah" * run[0]
+        for blah in run[1:]:
+            finalMessage += " " + topic + " blah" * blah
+
+    return debate_pb2.ElaborateReply(answer='%s' % finalMessage)
+'''
