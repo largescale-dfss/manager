@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+service NameNode{
+    rpc Store(StoreRequest) returns (StoreReply){}
+    rpc Read(ReadRequest) returns (ReadReply){}
+    rpc isAlive(AliveRequest) returns (AliveReply){}    
+}
+
+message StoreRequest{
+    string file_path = 1;
+    int32 file_size = 2;
+    string timestamp = 3;
+}
+
+message StoreReply{
+    string path = 1;
+    string datanodes = 2;
+    int32 block_size = 3;
+    bool success = 4;    
+}
+
+message ReadRequest{
+    string file_path = 1;
+    string timestamp = 2;
+}
+
+message ReadReply{
+    string datanodes = 1;
+    bool success = 2;    
+}
+
+message AliveRequest{
+    bool ping = 1;
+}
+
+message AliveReply{
+    bool health = 1;
+    string reply_msg = 2;    
+}
