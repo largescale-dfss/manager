@@ -7,7 +7,7 @@ import namenode_pb2
 from grpc.beta import implementations
 import sys 
 from namenode import Namenode
-
+import hashlib
 #global vars
 TIMEOUT = 10
 DEBUG = True
@@ -27,11 +27,14 @@ class NameNode(namenode_pb2.BetaNameNodeServicer):
             3. int32 block_size
             4. bool success
         """
+        if DEBUG:
+            print("Requesting NameNode.Store")
+
         nn = Namenode()
         data_nodes = nn.save(request.file_path, request.file_size, request.timestamp)
-         
+        path_hash = hashlib.sha1(request.file_path).hexdigest()
         print("NaneNode processing...")
-        return namenode_pb2.StoreReply(path=request.file_path,datanodes=str(data_nodes),block_size=nn.blocksize,success=True)
+        return namenode_pb2.StoreReply(path=path_hash,datanodes=str(data_nodes),block_size=nn.blocksize,success=True)
 
     def Read(self,request,context):
         """
@@ -46,6 +49,10 @@ class NameNode(namenode_pb2.BetaNameNodeServicer):
             1. bytes reply_file
             2. bool success
         """
+        
+        if DEBUG:
+            print("Requesting NameNode.Read")
+
         file_path = request.file_path
         timestamp = request.timestamp
         nn = Namenode()
