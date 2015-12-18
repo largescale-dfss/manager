@@ -30,8 +30,8 @@ class NameNode(namenode_pb2.BetaNameNodeServicer):
         nn = Namenode()
         data_nodes = nn.save(request.file_path,request.file_size,request.timestamp)
          
-
-        return namenode_pb2.StoreReply(path=request.file_path,datanodes=data_nodes,block_size=nn.blocksize,success=True)
+        print("NaneNode processing...")
+        return namenode_pb2.StoreReply(path=request.file_path,datanodes=str(data_nodes),block_size=nn.blocksize,success=True)
 
     def Read(self,request,context):
         """Reads a file from data node. This should simply call
