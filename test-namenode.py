@@ -15,8 +15,11 @@ def main():
     pfn = "./test.txt"
     file_size = 1337
     ts = "123121234"
-    req =namenode_pb2.StoreRequest(file_path=pfn,file_size=file_size,timestamp=ts)
-    response = stub.Store(req,10)
+    #req =namenode_pb2.StoreRequest(file_path=pfn,file_size=file_size,timestamp=ts)
+    #response = stub.Store(req,10)
+    req = namenode_pb2.ReadRequest(file_path=pfn,timestamp=ts)
+    response = stub.Read(req,10)
+    print(response.datanodes)
 
 if __name__ == '__main__':
     main()

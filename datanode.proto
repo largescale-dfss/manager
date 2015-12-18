@@ -2,7 +2,7 @@ syntax = "proto3";
 
 service DataNode{
     rpc Store(StoreRequest) returns (StoreReply){}
-    rpc Read(ReadRequest) returns {ReadReply}{}
+    rpc Read(ReadRequest) returns (ReadReply){}
 }
 
 message StoreRequest {
