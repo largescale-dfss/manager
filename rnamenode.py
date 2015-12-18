@@ -28,13 +28,14 @@ class NameNode(namenode_pb2.BetaNameNodeServicer):
             4. bool success
         """
         nn = Namenode()
-        data_nodes = nn.save(request.file_path,request.file_size,request.timestamp)
+        data_nodes = nn.save(request.file_path, request.file_size, request.timestamp)
          
 
         return namenode_pb2.StoreReply(path=request.file_path,datanodes=data_nodes,block_size=nn.blocksize,success=True)
 
     def Read(self,request,context):
-        """Reads a file from data node. This should simply call
+        """
+        Reads a file from data node. This should simply call
         dfss.Read() with the proper parameters.
 
         ReadRequest takes the following parameters:
@@ -45,21 +46,11 @@ class NameNode(namenode_pb2.BetaNameNodeServicer):
             1. bytes reply_file
             2. bool success
         """
-       
-        if commonlib.DEBUG:
-            print("attempting to connect to DataNode Read...")
-       
-        #ensure that requests are not nonetype
-        try:
-            fn = request.file_name
-            ts = request.timestamp
-        except:  
-            print("Requests are empty")
-            
-        #NOTE: Replace with new dfss.Read() 
-        fd = dfss.Read(fn,ts)
-        fd = str(fd)
-        return data_pb2.ReadReply(reply_file=fd,success=True)
+        file_path = request.file_path
+        timestamp = request.timestamp
+        nn = Namenode()
+        data_nodes = nn.get(file_path, timestamp)
+        return namenode_pb2.ReadReply(datanodes=data_nodes, success=True)
     
     def isAlive(self,request,context):
         """This responds with a message indicating the service is alive.
