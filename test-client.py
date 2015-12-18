@@ -44,8 +44,8 @@ def openFile(filePath, timeStamp):
 
 
 
-with open('/home/cs202/Desktop/hello.txt', 'r') as f:
-  read_data = f.read()
+# with open('/home/cs202/Desktop/hello.txt', 'r') as f:
+#   read_data = f.read()
 
 filePath = "/User01/test.txt"
 #time.time is float by default so cutting off decimal points
@@ -59,4 +59,3 @@ timestamp = int(time.time())
 openFile("/Users/darwin/Desktop/test.txt", 12345)
 
 
-f.closed

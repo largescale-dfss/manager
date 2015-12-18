@@ -15,13 +15,8 @@ class Manager(manager_django_pb2.BetaManagerServicer):
 
         filePath = request.open_path
         timeStamp = request.timestamp
-	#SaveFile request has file, filepath, and timestamp
-	saveFile = request.save_file
-	path = request.save_path
-	timestamp = request.timestamp
-    
-	filename = os.path.basename(path)
 
+        
         #THIS IS TEST NAIVE CODE
         with open(filePath, 'r') as f:
           read_data = f.read()
@@ -57,28 +52,17 @@ class Manager(manager_django_pb2.BetaManagerServicer):
         # Blocksize 123
 
         # Now talk to the DataNodes
-    
-with open(filename, 'wb') as f:
-        f.write(saveFile)
-    """
-    filesize = len(saveFile)
-
-    
-    #channel = implementations.insecure_channel("127.0.0.1",50056)
-    #stub = namenode_pb2.beta_create_NameNode_stub(channel)
-    #req = namenode_pb2.StoreRequest(file_path=path,file_size=filesize,timestamp=timestamp)
-    #response=stub.Store(req,TIMEOUT)    
-        #print("something went wrong here...")
-    """
-    return manager_django_pb2.SaveResponse(transfer_status='%s' % finalMessage)
+            
+        """
+        filesize = len(saveFile)
 
 
-
-
-
-
-
-
+        #channel = implementations.insecure_channel("127.0.0.1",50056)
+        #stub = namenode_pb2.beta_create_NameNode_stub(channel)
+        #req = namenode_pb2.StoreRequest(file_path=path,file_size=filesize,timestamp=timestamp)
+        #response=stub.Store(req,TIMEOUT)    
+            #print("something went wrong here...")
+        """
 
         #This is just test code for saving file
         filename = os.path.basename(path)
