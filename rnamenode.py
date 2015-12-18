@@ -72,12 +72,14 @@ def main():
     commandline arg"""
     if len(sys.argv)  == 1:
         print("Please pass in a port number to run!")
+        exit()
     #set port 
     port = sys.argv[1]
 
     print("\n\tStarting server on localhost:"+port)
     server = namenode_pb2.beta_create_NameNode_server(NameNode())
     ip = "[::]:"+str(port)
+    print("Starting NameNode at %s" % ip)
     server.add_insecure_port(ip)
     server.start()
     try:

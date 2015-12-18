@@ -26,11 +26,14 @@ def main():
     print("Running datanode...")
     if(len(sys.argv) < 1):
         print("Please enter the proper parameters!")
-        print("python rdatanode.py <port>") 
+        print("python rdatanode.py <port>")
+        exit()
+     
     server = datanode_pb2.beta_create_DataNode_server(DataNode())
     #ip = "[::]:5000"
     port = sys.argv[1]
     ip = "[::]:"+port
+    print("Running server... %s" % ip)
     server.add_insecure_port(ip)
     server.start()
     try:
