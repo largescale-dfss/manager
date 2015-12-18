@@ -17,6 +17,7 @@ message StoreReply {
 
 message ReadRequest {
     string blockname = 1;
+    string timestamp = 2;
 }
 
 message ReadReply {
