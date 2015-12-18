@@ -16,11 +16,33 @@ class Manager(manager_django_pb2.BetaManagerServicer):
     path = request.save_path
     timestamp = request.timestamp
 
-    filename = os.path.basename(path)
 
-    with open(filename, 'wb') as f:
-        f.write(saveFile)
+    #TEAM DFS SHOULD IMPLEMENT RPC CALL NAMENODE CALL HERE
 
+
+
+
+
+
+    #Sha1 of Path (160 bits) & JSON(List of datanodes) [(ip, port), (ip, port)], Blocksize
+    path = SHA1.Path
+    JSON = [(12.12.12.12, 1234), (12.12.12.12, 1345)]
+    Blocksize 123
+
+    # Now talk to the DataNodes
+    
+
+
+
+
+
+
+    # filename = os.path.basename(path)
+
+    # with open(filename, 'wb') as f:
+    #     f.write(saveFile)
+
+    #You can return whatever you like on write
     return manager_django_pb2.SaveResponse(transfer_status='%s' % finalMessage)
 
 
