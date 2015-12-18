@@ -25,9 +25,9 @@ class Manager(manager_django_pb2.BetaManagerServicer):
 
 
     #Sha1 of Path (160 bits) & JSON(List of datanodes) [(ip, port), (ip, port)], Blocksize
-    path = SHA1.Path
-    JSON = [(12.12.12.12, 1234), (12.12.12.12, 1345)]
-    Blocksize 123
+    # path = SHA1.Path
+    # JSON = [(12.12.12.12, 1234), (12.12.12.12, 1345)]
+    # Blocksize 123
 
     # Now talk to the DataNodes
     
@@ -37,10 +37,10 @@ class Manager(manager_django_pb2.BetaManagerServicer):
 
 
 
-    # filename = os.path.basename(path)
+    filename = os.path.basename(path)
 
-    # with open(filename, 'wb') as f:
-    #     f.write(saveFile)
+    with open(filename, 'wb') as f:
+        f.write(saveFile)
 
     #You can return whatever you like on write
     return manager_django_pb2.SaveResponse(transfer_status='%s' % finalMessage)
