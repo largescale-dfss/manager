@@ -5,10 +5,16 @@ import namenode_pb2
 import json
 from grpc.beta import implementations
 import hashlib
+import sys
 import datanode_pb2
 def main():
-    print("Testing namenode...")
-    port = 50056
+    if len(sys.argv) == 1:
+        print("Please pass port number as parameter")
+        exit()
+
+    port = sys.argv[1]
+    print("Testing namenode read request on port %s" % port)
+    
     ip = "127.0.0.1"
     
     channel = implementations.insecure_channel(str(ip),int(port))

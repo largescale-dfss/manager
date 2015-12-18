@@ -6,9 +6,15 @@ import json
 from grpc.beta import implementations
 import hashlib
 import datanode_pb2
+import sys
 def main():
-    print("Testing namenode...")
-    port = 50056
+    
+    if len(sys.argv) == 1:
+        print("Please pass port number")
+        exit()
+    
+    port = sys.argv[1]
+    print("Testing namenode on port "+port)
     ip = "127.0.0.1"
     
     channel = implementations.insecure_channel(str(ip),int(port))
@@ -21,8 +27,9 @@ def main():
     d = f.read()
     f.close()
     
-    #req =namenode_pb2.StoreRequest(file_path=pfn,file_size=file_size,timestamp=ts)
-    #response = stub.Store(req,10)
+    req =namenode_pb2.StoreRequest(file_path=pfn,file_size=file_size,timestamp=ts)
+    response = stub.Store(req,10)
+    """
     req = namenode_pb2.ReadRequest(file_path=pfn,timestamp=ts)
     response = stub.Read(req,10)
     datanodes = json.loads(response.datanodes)
@@ -33,6 +40,7 @@ def main():
     dn_req = datanode_pb2.ReadRequest(blockname=pathy,timestamp=ts)
     response = dn_stub.Read(dn_req,10)
     print(response.data)
+    """
     """
     for dn in c:
         ip = dn[0]
