@@ -3,7 +3,7 @@ from grpc.beta import implementations
 import sys
 import manager_django_pb2
 import time
-
+import os
 _TIMEOUT_SECONDS = 100
 
 def sendFile(transferFile, filePath, timeStamp):
@@ -15,7 +15,7 @@ def sendFile(transferFile, filePath, timeStamp):
   print response.transfer_status
 
 
-with open('/Users/darwin/Desktop/test.txt', 'r') as f:
+with open('/home/cs202/Desktop/hello.txt', 'r') as f:
   read_data = f.read()
 
 filePath = "/User01/test.txt"

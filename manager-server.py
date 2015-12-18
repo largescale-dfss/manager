@@ -4,6 +4,8 @@ from grpc.beta import implementations
 import grpc
 import time
 import os
+import namenode_pb2
+TIMEOUT = 10
 
 _ONE_DAY_IN_SECONDS = 24 * 60 *60
 
@@ -15,12 +17,21 @@ class Manager(manager_django_pb2.BetaManagerServicer):
     saveFile = request.save_file
     path = request.save_path
     timestamp = request.timestamp
-
-    filename = os.path.basename(path)
+    
+    """filename = os.path.basename(path)
 
     with open(filename, 'wb') as f:
         f.write(saveFile)
+    """
+    filesize = len(saveFile)
 
+    
+    #channel = implementations.insecure_channel("127.0.0.1",50056)
+    #stub = namenode_pb2.beta_create_NameNode_stub(channel)
+    #req = namenode_pb2.StoreRequest(file_path=path,file_size=filesize,timestamp=timestamp)
+    #response=stub.Store(req,TIMEOUT)    
+        #print("something went wrong here...")
+    
     return manager_django_pb2.SaveResponse(transfer_status='%s' % finalMessage)
 
 
