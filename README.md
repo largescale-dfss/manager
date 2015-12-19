@@ -23,3 +23,10 @@ The datanodes and namenode servers must be passed a port number, for the
 desired port you wish to run the service on. So please invoke the
 following for either rdatanode.py or rnamenode.py `python rdatanode.py
 port_number`
+
+###Running DFS
+Start Namenode: `sudo ./run_namenode.sh`
+Set the port to 5050 or match the port in the manager.py
+
+Start a new Datanode: `sudo ./run_datanode.sh`
+Available Ports: [5000, 6000, 7000, 8000]
