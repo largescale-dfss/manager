@@ -29,7 +29,6 @@ def main():
     print(d)
     req =datanode_pb2.StoreRequest(blockname=pfn,timestamp=ts,data=str(d))
     response = stub.Store(req,10) 
-    print("Test successful")
     #req =namenode_pb2.StoreRequest(file_path=pfn,file_size=file_size,timestamp=ts)
     #response = stub.Store(req,10)
     """req = namenode_pb2.ReadRequest(file_path=pfn,timestamp=ts)
@@ -64,4 +63,9 @@ def main():
      
 
 if __name__ == '__main__':
-    main()
+    try:
+        main()
+        print("Test is successful!")
+    except Exception as err:
+        print(err)
+        print("Test failed!")
