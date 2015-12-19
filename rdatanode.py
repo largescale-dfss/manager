@@ -6,16 +6,23 @@ import time
 import datanode_pb2
 from datanode import Datanode
 from grpc.beta import implementations
+
+#global variables
+DEBUG = True
+
 class DataNode(datanode_pb2.BetaDataNodeServicer):
     def Store(self,request,context):
-        
+        if DEBUG:
+            print("Requesting DataNode.Store")
+
         dn = Datanode()
         dn.write(request.blockname,request.timestamp,request.data)
         
         return datanode_pb2.StoreReply(success=True)
 
     def Read(self,request,context):
-        
+        if DEBUG:
+            print("Requesting Datanode.Read")
         dn = Datanode()
         data = dn.read(request.block_name,request.timestamp)
 
