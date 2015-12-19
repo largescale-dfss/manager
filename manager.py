@@ -113,25 +113,3 @@ def serve():
 
 if __name__ == '__main__':
   serve()
-
-
-
-'''
-  def Elaborate(self, request, context):
-    topic = request.topic
-    run = request.blah_run
-
-    if run == []:
-        finalMessage = topic + " "
-        finalMessage = finalMessage[:-1]
-        return debate_pb2.ElaborateReply(answer='%s' % finalMessage)
-
-    if len(run) == 1:
-        finalMessage = "blah" * run[0] + " " + topic
-    else:
-        finalMessage = "blah" * run[0]
-        for blah in run[1:]:
-            finalMessage += " " + topic + " blah" * blah
-
-    return debate_pb2.ElaborateReply(answer='%s' % finalMessage)
-'''
