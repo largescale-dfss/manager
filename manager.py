@@ -50,7 +50,7 @@ class Manager(manager_django_pb2.BetaManagerServicer):
         return ("").join(datalist)            
 
 
-    def writoToNamenode(self, path_to_file, timestamp, file_data):
+    def writeToNamenode(self, path_to_file, timestamp, file_data):
         file_size = len(file_data)
         channel = implementations.insecure_channel(self.namenode_ip, self.namenode_port)
         stub = namenode_pb2.beta_create_NameNode_stub(channel)
