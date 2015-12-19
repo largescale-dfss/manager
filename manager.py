@@ -1,6 +1,6 @@
 from grpc.beta import implementations
 import manager_django_pb2, namenode_pb2, datanode_pb2
-import random, grpc, time, os
+import json, hashlib, sys, random, grpc, time, os
 
 TIMEOUT = 10
 _TIMEOUT = 10
