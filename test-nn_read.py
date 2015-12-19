@@ -50,6 +50,7 @@ def main():
     #dn_req = datanode_pb2.ReadRequest(blockname=pathy,timestamp=ts)
     #response = dn_stub.Read(dn_req,10)
     #print(response.data)
+    
     """
     for dn in c:
         ip = dn[0]
@@ -68,7 +69,12 @@ def main():
     response = stub.Read(dn_req,10)
     print(response.data)
    """ 
-    
+    print("Test successful") 
 
 if __name__ == '__main__':
-    main()
+    try:
+        main()
+        print("Test is successful")
+    except Exception as err:
+        print(err)
+        print("Test failed")

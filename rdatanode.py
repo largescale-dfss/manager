@@ -17,7 +17,8 @@ class DataNode(datanode_pb2.BetaDataNodeServicer):
 
         dn = Datanode()
         dn.write(request.blockname,request.timestamp,request.data)
-        
+        if DEBUG:
+            print("\tDataNode.Store completed successfully!") 
         return datanode_pb2.StoreReply(success=True)
 
     def Read(self,request,context):
@@ -25,13 +26,14 @@ class DataNode(datanode_pb2.BetaDataNodeServicer):
             print("Requesting Datanode.Read")
         dn = Datanode()
         data = dn.read(request.blockname,request.timestamp)
-
+        if DEBUG:
+            print("\t Datanode.Read completed successfully! ")
         return datanode_pb2.ReadReply(data=data,success=True)
 
 
 def main():
     print("Running datanode...")
-    if(len(sys.argv) < 1):
+    if(len(sys.argv) == 1):
         print("Please enter the proper parameters!")
         print("python rdatanode.py <port>")
         exit()

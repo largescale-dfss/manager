@@ -33,7 +33,10 @@ class NameNode(namenode_pb2.BetaNameNodeServicer):
         nn = Namenode()
         data_nodes = nn.save(request.file_path, request.file_size, request.timestamp)
         path_hash = hashlib.sha1(request.file_path).hexdigest()
-        print("NaneNode processing...")
+        if DEBUG:
+            print("Datanode.save() processed successfully")
+            print("StoreReply response should be available")
+
         return namenode_pb2.StoreReply(path=path_hash,datanodes=str(data_nodes),block_size=nn.blocksize,success=True)
 
     def Read(self,request,context):
@@ -57,6 +60,9 @@ class NameNode(namenode_pb2.BetaNameNodeServicer):
         timestamp = request.timestamp
         nn = Namenode()
         data_nodes = nn.get(file_path, timestamp)
+        if DEBUG: 
+            print("Processing namenode.get() successful.")
+            print("Response should be completed")
         return namenode_pb2.ReadReply(datanodes=data_nodes, success=True)
     
     def isAlive(self,request,context):

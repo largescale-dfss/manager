@@ -60,7 +60,11 @@ def main():
     response = stub.Read(dn_req,10)
     print(response.data)
    """ 
-    
 
 if __name__ == '__main__':
-    main()
+    try:
+        main()
+        print("Test is successful!")
+    except Exception as err:
+        print(err)
+        print("Test failed")
