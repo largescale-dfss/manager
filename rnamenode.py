@@ -22,7 +22,7 @@ class NameNode(namenode_pb2.BetaNameNodeServicer):
             3. string timestamp
 
         StoreReply takes the following parameters:
-            1. string path
+            1. string hash(path)
             2. string datanodes
             3. int32 block_size
             4. bool success

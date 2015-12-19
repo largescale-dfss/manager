@@ -24,7 +24,7 @@ class DataNode(datanode_pb2.BetaDataNodeServicer):
         if DEBUG:
             print("Requesting Datanode.Read")
         dn = Datanode()
-        data = dn.read(request.block_name,request.timestamp)
+        data = dn.read(request.blockname,request.timestamp)
 
         return datanode_pb2.ReadReply(data=data,success=True)
 
