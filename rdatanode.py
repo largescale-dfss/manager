@@ -11,11 +11,15 @@ from grpc.beta import implementations
 DEBUG = True
 
 class DataNode(datanode_pb2.BetaDataNodeServicer):
+
+    def __init__(self, port):
+        self.port = port
+
     def Store(self,request,context):
         if DEBUG:
             print("Requesting DataNode.Store")
 
-        dn = Datanode()
+        dn = Datanode(self.port)
         dn.write(request.blockname,request.timestamp,request.data)
         if DEBUG:
             print("\tDataNode.Store completed successfully!") 

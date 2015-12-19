@@ -2,7 +2,8 @@ import os
 class Datanode:
     root = "/var/dfs_dn"
     
-    def __init__(self):
+    def __init__(self, datanode_id):
+        self.root = self.root + datanode_id
         if not (os.path.isdir(self.root) and os.path.exists(self.root)):
             try:
                 os.makedirs(self.root)
