@@ -22,24 +22,26 @@ def main():
     hash_path = hashlib.sha1(path_to_file).hexdigest()
     ts = "123121234"
     with open(path_to_file, 'r') as f:
-        d = f.read()
-        file_size = len(d)
+        file_data = f.read()
+        file_size = len(file_data)
     
     #req =namenode_pb2.StoreRequest(file_path=pfn,file_size=file_size,timestamp=ts)
     #response = stub.Store(req,10)
     req = namenode_pb2.ReadRequest(file_path=path_to_file, timestamp=ts)
     response = stub.Read(req, 10)
     datanodes = json.loads(response.datanodes)
+    block_size = 15010
     c = datanodes
+    split_data = [file_data[i:i+block_size] for i in range(0, len(file_data), block_size)]
     for index, dn in enumerate(datanodes):
         dn_ip = dn[0]
         dn_port = dn[1]
         offset = "{0:#0{1}x}".format(index,6)[2:]
         block_name = hash_path[:36] + offset
-        print dn_ip, dn_port, block_name, ts, type(d)
+        print dn_ip, dn_port, block_name, ts
         dn_channel = implementations.insecure_channel(dn_ip, dn_port)
         dn_stub = datanode_pb2.beta_create_DataNode_stub(dn_channel)
-        dn_write_req = datanode_pb2.StoreRequest(blockname=block_name, timestamp=ts, data=d)
+        dn_write_req = datanode_pb2.StoreRequest(blockname=block_name, timestamp=ts, data=split_data[index])
         response = dn_stub.Store(dn_write_req, 10)
     dn_channel2 = implementations.insecure_channel(dn_ip, dn_port)
     dn_stub2 = datanode_pb2.beta_create_DataNode_stub(dn_channel2)

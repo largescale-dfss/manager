@@ -87,7 +87,7 @@ class Manager(manager_django_pb2.BetaManagerServicer):
         block_size = write_res.block_size
 
         #Splits the file by block size into a list
-        split_data = [x[i:i+block_size] for i in range(0, len(file_data), block_size)]
+        split_data = [file_data[i:i+block_size] for i in range(0, len(file_data), block_size)]
 
         #Writes to Datanodes
         self.writetoDatanode(datanodes, split_data)

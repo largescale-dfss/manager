@@ -21,11 +21,9 @@ def main():
     stub = namenode_pb2.beta_create_NameNode_stub(channel)
     
     pfn = "./test.txt"
-    file_size = 1337
+    with open(pfn, 'r') as f:
+        file_size = len(f.read())
     ts = "123121234"
-    f = open(pfn, 'r')
-    d = f.read()
-    f.close()
     
     req =namenode_pb2.StoreRequest(file_path=pfn,file_size=file_size,timestamp=ts)
     response = stub.Store(req,10)
