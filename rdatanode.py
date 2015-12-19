@@ -32,7 +32,7 @@ class DataNode(datanode_pb2.BetaDataNodeServicer):
 
 def main():
     print("Running datanode...")
-    if(len(sys.argv) < 1):
+    if(len(sys.argv) == 1):
         print("Please enter the proper parameters!")
         print("python rdatanode.py <port>")
         exit()
