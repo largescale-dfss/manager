@@ -46,6 +46,7 @@ def main():
     dn_read_req = datanode_pb2.ReadRequest(blockname=block_name, timestamp=ts)
     response = dn_stub2.Read(dn_read_req, 10)
     print response.data
+    
     #pathy = hashlib.sha1(pfn).hexdigest()
     #dn_req = datanode_pb2.ReadRequest(blockname=pathy,timestamp=ts)
     #response = dn_stub.Read(dn_req,10)

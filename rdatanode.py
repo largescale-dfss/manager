@@ -28,7 +28,7 @@ class DataNode(datanode_pb2.BetaDataNodeServicer):
     def Read(self,request,context):
         if DEBUG:
             print("Requesting Datanode.Read")
-        dn = Datanode()
+        dn = Datanode(self.port)
         data = dn.read(request.blockname,request.timestamp)
         if DEBUG:
             print("\t Datanode.Read completed successfully! ")
@@ -42,10 +42,10 @@ def main():
         print("python rdatanode.py <port>")
         exit()
      
-    server = datanode_pb2.beta_create_DataNode_server(DataNode())
     #ip = "[::]:5000"
     port = sys.argv[1]
     ip = "[::]:"+port
+    server = datanode_pb2.beta_create_DataNode_server(DataNode(port))
     print("Running server... %s" % ip)
     server.add_insecure_port(ip)
     server.start()
