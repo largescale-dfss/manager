@@ -14,9 +14,11 @@ def main():
     channel = implementations.insecure_channel(str(ip),int(port))
     stub = namenode_pb2.beta_create_NameNode_stub(channel)
     
+    #parameters required for request
     pfn = "./test.txt"
     file_size = 1337
     ts = "123121234"
+    
     f = open(pfn, 'r')
     d = f.read()
     f.close()
@@ -33,25 +35,14 @@ def main():
     dn_req = datanode_pb2.ReadRequest(blockname=pathy,timestamp=ts)
     response = dn_stub.Read(dn_req,10)
     print(response.data)
-    """
-    for dn in c:
-        ip = dn[0]
-        port = int(dn[1])
-        
-        dn_channel = implementations.insecure_channel(ip,port)
-        dn_stub = datanode_pb2.beta_create_DataNode_stub(dn_channel)
-        pathy = hashlib.sha1(pfn).hexdigest()
-        dn_req = datanode_pb2.StoreRequest(blockname=pathy,timestamp=ts, data=d)
-        response = dn_stub.Store(dn_req,10)
-    """
-    """dn_channel = implementations.insecure_channel('localhost',5000)
-    dn_stub = datanode_pb2.beta_create_DataNode_stub(dn_channel)
-    pathy = hashlib.sha1(pfn).hexdigest()
-    dn_req=datanode_pb2.ReadRequest(blockname=pathy,timestamp=ts)
-    response = stub.Read(dn_req,10)
-    print(response.data)
-   """ 
     
 
 if __name__ == '__main__':
-    main()
+
+    try:
+        main()
+        print("Test is successful")
+    except Exception as err:
+        print("Test has failed!")
+        print(err)
+

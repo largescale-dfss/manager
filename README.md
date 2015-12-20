@@ -30,3 +30,31 @@ Set the port to 5050 or match the port in the manager.py
 
 Start a new Datanode: `sudo ./run_datanode.sh`
 Available Ports: [5000, 6000, 7000, 8000]
+
+
+###Project description
+The project is split into several different files. The first group of
+files are bash scripts that allow you to run the RPC servers. These
+include: `run_datanode.sh` , `run_namenode.sh` , and `startManager.sh`
+
+The project also contains our class definition for our file system
+calls. `datanode.py` contains a class definition for simple I/O
+operations on which the datanodes should perform, such as read and
+write. `namenode.py` also contains a class definition for the operations
+which should be supported by the namenode.
+
+The second set of files in this project is the proto files, which
+contain the protocol buffers for our various RPCs. We have three
+protocol buffers: `manager.proto` , `datanode.proto` , and finally
+`namenode.proto`
+
+The next set of files are the actual RPCs. These include `manager.py` ,
+`rnamenode.py` and finally `rdatanode.py` . These files could be
+executed by running the bash scripts talked about in the first portion.
+
+Finally we created test files that test various aspects of our project.
+Each test file contains a prefix of the string `test` to denote the test
+file, followed by a description of what the file is trying to test.
+
+
+
