@@ -44,12 +44,13 @@ class Manager(manager_django_pb2.BetaManagerServicer):
             print "readFromDatanodes", dn
             dn_ip = dn[0].encode('ascii','ignore')
             dn_port = int(dn[1])
+            print type(dn_ip), type(dn_port)
             offset = "{0:#0{1}x}".format(index,6)[2:]
             block_name = hash_path[:36] + offset
             dn_channel = implementations.insecure_channel(dn_ip, dn_port)
             dn_stub = datanode_pb2.beta_create_DataNode_stub(dn_channel)
             dn_read_req = datanode_pb2.ReadRequest(blockname=block_name, timestamp=timestamp)
-            response = dn_stub2.Read(dn_read_req, 10)
+            response = dn_stub.Read(dn_read_req, 10)
             datalist.append(response.data)
         return ("").join(datalist)            
 
