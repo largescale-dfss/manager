@@ -15,17 +15,19 @@ class Manager(manager_django_pb2.BetaManagerServicer):
     def OpenFile(self, request, context):
         print "Inside OpenFile"
 
-        path_to_file = request.open_path
-        timestamp = request.timestamp
+        path_to_file = request.open_path.encode('ascii','ignore')
+        timestamp = str(request.timestamp)
         hash_path = hashlib.sha1(path_to_file).hexdigest()
+        print path_to_file, timestamp, hash_path
         
         #RPC to Namenode and get datanodes
         read_res = self.readFromNamenode(path_to_file, timestamp)
-        datanodes = read_res.datanodes
-
+        datanodes = json.loads(read_res.datanodes)
+        #print json.loads(datanodes)[0]
         #RPC to Datanodes and combine data to get full file
-        read_data = self.readFromDatanodes(hash_path, datanodes)
-        
+        read_data = self.readFromDatanodes(hash_path, timestamp, datanodes)
+        #read_data = "hello world"
+        #print read_data
         return manager_django_pb2.OpenResponse(open_file=read_data)
     
     def readFromNamenode(self, path_to_file, timestamp):
@@ -35,16 +37,18 @@ class Manager(manager_django_pb2.BetaManagerServicer):
         response = stub.Read(req, 10)
         return response
 
-    def readFromDatanodes(self, hash_path, datanodes):
+    def readFromDatanodes(self, hash_path, timestamp, datanodes):
+        print "inside", datanodes[0]
         datalist = []
         for index, dn in enumerate(datanodes):
-            dn_ip = dn[0]
-            dn_port = dn[1]
+            print "readFromDatanodes", dn
+            dn_ip = dn[0].encode('ascii','ignore')
+            dn_port = int(dn[1])
             offset = "{0:#0{1}x}".format(index,6)[2:]
             block_name = hash_path[:36] + offset
             dn_channel = implementations.insecure_channel(dn_ip, dn_port)
             dn_stub = datanode_pb2.beta_create_DataNode_stub(dn_channel)
-            dn_read_req = datanode_pb2.ReadRequest(blockname=block_name, timestamp=ts)
+            dn_read_req = datanode_pb2.ReadRequest(blockname=block_name, timestamp=timestamp)
             response = dn_stub2.Read(dn_read_req, 10)
             datalist.append(response.data)
         return ("").join(datalist)            
