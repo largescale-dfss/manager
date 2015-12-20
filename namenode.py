@@ -35,7 +35,10 @@ class Namenode:
     def get(self, file_path, timestamp):
         pathHash = hashlib.sha1(file_path).hexdigest()
         filename = pathHash + "@" + str(timestamp)
-        absPath = os.path.join(self.root, filename)
+        dirPath = os.path.join(self.root, os.path.dirname(file_path))
+        if not (os.path.isdir(dirPath) and os.path.exists(dirPath)):
+            raise Exception('{} doesnt exist'.format(dirPath))
+        absPath = os.path.join(dirPath, filename)
         arr = None
         with open(absPath, 'r') as f:
             list_datanodes = f.read()
@@ -47,7 +50,10 @@ class Namenode:
         numBlocks = int(ceil(float(file_size)/self.blocksize))
         pathHash = hashlib.sha1(file_path).hexdigest()
         filename = pathHash + "@" + str(timestamp)
-        absPath = os.path.join(self.root, filename)
+        dirPath = os.path.join(self.root, os.path.dirname(file_path))
+        if not (os.path.isdir(dirPath) and os.path.exists(dirPath)):
+            os.makedirs(dirPath)
+        absPath = os.path.join(dirPath, filename)
         with open(absPath, 'w') as f:
             list_ports = json.dumps(self.getNewDN(numBlocks))
             f.write(list_ports)
