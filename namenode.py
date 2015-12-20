@@ -49,7 +49,7 @@ class Namenode:
         filename = pathHash + "@" + str(timestamp)
         absPath = os.path.join(self.root, filename)
         with open(absPath, 'w') as f:
-            list_ports = self.getNewDN(numBlocks)
-            f.write(json.dumps(list_ports))
+            list_ports = json.dumps(self.getNewDN(numBlocks))
+            f.write(list_ports)
             return list_ports
 
