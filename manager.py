@@ -66,6 +66,7 @@ class Manager(manager_django_pb2.BetaManagerServicer):
         return response
 
     def writetoDatanode(self, hash_path, timestamp, datanodes, split_data):
+        print "Inside writeToDatanode"
         for index, dn in enumerate(datanodes):
             print type(dn[0]), dn[0], type(dn[1]), dn[1]
             dn_ip = dn[0].encode('ascii','ignore')
@@ -80,16 +81,18 @@ class Manager(manager_django_pb2.BetaManagerServicer):
     def SaveFile(self, request, context):
         print "Saving File..."
         finalMessage = "File has been saved to dfs"
-
+        file_data = request.save_file
         #SaveFile request has file, filepath, and timestamp
-        file_data = request.save_file.encode('ascii','ignore')
+        #file_data = request.save_file.encode('ascii','ignore')
         path_to_file = request.save_path.encode('ascii','ignore')
         timestamp = str(request.timestamp)
 
+        print type(file_data)
         #TEAM DFS SHOULD IMPLEMENT RPC CALL NAMENODE CALL HERE
         #Writes to Namenode
 
         #print type(file_data), type(path_to_file), type(timestamp)
+        
         write_res = self.writeToNamenode(path_to_file, timestamp, file_data)
         
         hash_path = write_res.path
