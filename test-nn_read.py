@@ -72,7 +72,6 @@ def main():
     response = stub.Read(dn_req,10)
     print(response.data)
    """ 
-    print("Test successful") 
 
 if __name__ == '__main__':
     try:
