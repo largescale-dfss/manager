@@ -18,9 +18,10 @@ class Namenode:
     def getNewDN(self, numBlocks):
         dnodes = []
         od = OrderedDict(sorted(self.datanodes.items()), key=lambda t: t[1])
-        keys = od.keys()
+        keys = od.keys()[:-1]
         if (numBlocks > len(self.datanodes)):
-            dnodes = keys + keys[:numBlocks-len(keys)]
+            for dn in range(numBlocks):
+                dnodes.append(keys[dn%len(keys)])
         else:
             dnodes = keys[:numBlocks]
         self.updateDN(dnodes)

@@ -62,6 +62,7 @@ class Manager(manager_django_pb2.BetaManagerServicer):
         stub = namenode_pb2.beta_create_NameNode_stub(channel)
         req = namenode_pb2.StoreRequest(file_path = path_to_file, file_size = file_size, timestamp = timestamp)
         response = stub.Store(req, _TIMEOUT)
+        print "dd: ", response.datanodes
         #TODO check response.success
         return response
 
